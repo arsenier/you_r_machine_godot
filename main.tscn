@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://0x8pho246xgd"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_cxlap"]
+[ext_resource type="PackedScene" uid="uid://cxkq7u5rhrw0k" path="res://login.tscn" id="1_ithsw"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cxlap")
+login_scn = ExtResource("1_ithsw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.352941, 0.341176, 0.337255, 1)
+
+[node name="HBoxContainer" type="HSplitContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "LOGIN"
+
+[connection signal="pressed" from="ColorRect/Button" to="." method="_on_button_pressed"]
