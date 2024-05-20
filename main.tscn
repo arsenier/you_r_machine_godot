@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://0x8pho246xgd"]
+[gd_scene load_steps=5 format=3 uid="uid://0x8pho246xgd"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_cxlap"]
 [ext_resource type="PackedScene" uid="uid://cxkq7u5rhrw0k" path="res://login.tscn" id="1_ithsw"]
+[ext_resource type="FontFile" uid="uid://ciqbogfqmqgu5" path="res://assets/Pixelary.otf" id="3_2poda"]
+[ext_resource type="PackedScene" uid="uid://75n4vrj6ojyi" path="res://leaderboard.tscn" id="3_h0i1w"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -30,17 +32,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="Login" type="Button" parent="ColorRect/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "LOGIN"
+
+[node name="Highscores" type="Button" parent="ColorRect/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Update highscores"
+
+[node name="ItemList" type="ItemList" parent="ColorRect/HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.901961, 0.901961, 0.901961, 1)
+theme_override_fonts/font = ExtResource("3_2poda")
+theme_override_font_sizes/font_size = 48
+allow_search = false
+
+[node name="SpinBox" type="SpinBox" parent="ColorRect/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+min_value = 1.0
+value = 10.0
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer"]
-layout_mode = 2
+[node name="leaderboard" parent="." instance=ExtResource("3_h0i1w")]
 
-[node name="Button" type="Button" parent="ColorRect"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-text = "LOGIN"
-
-[connection signal="pressed" from="ColorRect/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/MarginContainer/VBoxContainer/Login" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/MarginContainer/VBoxContainer/Highscores" to="." method="_on_highscores_pressed"]

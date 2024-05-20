@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://75n4vrj6ojyi"]
+
+[ext_resource type="Script" path="res://leaderboard.gd" id="1_qmvt5"]
+
+[node name="leaderboard" type="Node"]
+script = ExtResource("1_qmvt5")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
