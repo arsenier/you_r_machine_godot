@@ -13,6 +13,8 @@ func get_leaderboard(limit = 10):
 	#var auth = str("Basic ", Marshalls.utf8_to_base64(str(login, ":", password))) 
 	#var headers=["Content-Type: application/json","Authorization: "+auth]
 	var headers = []
+	
+	headers.append(get_parent().auth_header)
 
 	$HTTPRequest.request(url, headers, HTTPClient.METHOD_GET)
 	#yield(_on_request_completed(), "completed")

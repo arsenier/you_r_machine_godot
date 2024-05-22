@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://0x8pho246xgd"]
+[gd_scene load_steps=7 format=3 uid="uid://0x8pho246xgd"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_cxlap"]
 [ext_resource type="PackedScene" uid="uid://cxkq7u5rhrw0k" path="res://login.tscn" id="1_ithsw"]
 [ext_resource type="FontFile" uid="uid://ciqbogfqmqgu5" path="res://assets/Pixelary.otf" id="3_2poda"]
 [ext_resource type="PackedScene" uid="uid://75n4vrj6ojyi" path="res://leaderboard.tscn" id="3_h0i1w"]
+[ext_resource type="PackedScene" uid="uid://d2mqrixkwb6ms" path="res://create_account.tscn" id="3_na12q"]
+[ext_resource type="Script" path="res://submitScore.gd" id="6_a6jmm"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -14,6 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cxlap")
 login_scn = ExtResource("1_ithsw")
+create_user_scn = ExtResource("3_na12q")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -33,19 +36,30 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="ColorRect/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="LoggedIn" type="Label" parent="ColorRect/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 1
+text = "Not logged in"
+horizontal_alignment = 2
+
+[node name="CreateUser" type="Button" parent="ColorRect/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Create account"
 
 [node name="Login" type="Button" parent="ColorRect/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "LOGIN"
+text = "Login"
 
 [node name="Highscores" type="Button" parent="ColorRect/HBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -66,10 +80,31 @@ value = 10.0
 alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="ColorRect/HBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="SpinBox" type="SpinBox" parent="ColorRect/HBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+max_value = 1.23457e+07
+
+[node name="Submit" type="Button" parent="ColorRect/HBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "Submit score"
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1142, 587)
 
 [node name="leaderboard" parent="." instance=ExtResource("3_h0i1w")]
 
+[node name="submitScore" type="Node" parent="."]
+script = ExtResource("6_a6jmm")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="submitScore"]
+
+[connection signal="pressed" from="ColorRect/HBoxContainer/MarginContainer/VBoxContainer/CreateUser" to="." method="_on_create_user_pressed"]
 [connection signal="pressed" from="ColorRect/HBoxContainer/MarginContainer/VBoxContainer/Login" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ColorRect/HBoxContainer/MarginContainer/VBoxContainer/Highscores" to="." method="_on_highscores_pressed"]
+[connection signal="pressed" from="ColorRect/HBoxContainer/CenterContainer/HBoxContainer/Submit" to="." method="_on_submit_pressed"]

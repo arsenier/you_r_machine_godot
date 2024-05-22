@@ -1,19 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxkq7u5rhrw0k"]
+[gd_scene load_steps=3 format=3 uid="uid://d2mqrixkwb6ms"]
 
-[ext_resource type="Script" path="res://Login.gd" id="1_8eud8"]
-[ext_resource type="PackedScene" uid="uid://df2a1o4dkpb7o" path="res://basic_auth.tscn" id="2_gh4n4"]
+[ext_resource type="Script" path="res://create_account.gd" id="1_gam5d"]
+[ext_resource type="PackedScene" uid="uid://df2a1o4dkpb7o" path="res://basic_auth.tscn" id="2_a6um0"]
 
-[node name="Login" type="Control"]
+[node name="CreateAccount" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_8eud8")
+script = ExtResource("1_gam5d")
 
 [node name="Screen" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(250, 275)
+custom_minimum_size = Vector2(250, 340)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -45,7 +45,7 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="Screen/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "LOGIN"
+text = "CREATE NEW ACCOUNT"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer"]
@@ -57,6 +57,7 @@ text = "Login"
 
 [node name="LoginEdit" type="LineEdit" parent="Screen/MarginContainer/VBoxContainer"]
 layout_mode = 2
+max_length = 20
 
 [node name="PasswordLabel" type="Label" parent="Screen/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -66,20 +67,30 @@ text = "Password"
 layout_mode = 2
 secret = true
 
+[node name="PasswordLabel2" type="Label" parent="Screen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Repeat password"
+
+[node name="PasswordEdit2" type="LineEdit" parent="Screen/MarginContainer/VBoxContainer"]
+layout_mode = 2
+secret = true
+
 [node name="IncorrectLabel" type="Label" parent="Screen/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="LoginButton" type="Button" parent="Screen/MarginContainer/VBoxContainer"]
+[node name="CreateButton" type="Button" parent="Screen/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "LOGIN"
+text = "Create account"
 
 [node name="Button" type="Button" parent="Screen/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Cancel
 "
 
-[node name="BasicAuth" parent="." instance=ExtResource("2_gh4n4")]
+[node name="BasicAuth" parent="." instance=ExtResource("2_a6um0")]
 
-[connection signal="pressed" from="Screen/MarginContainer/VBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="pressed" from="Screen/MarginContainer/VBoxContainer/CreateButton" to="." method="_on_create_button_pressed"]
 [connection signal="pressed" from="Screen/MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="logged_in" from="BasicAuth" to="." method="_on_basic_auth_logged_in"]

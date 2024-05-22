@@ -18,5 +18,18 @@ func _on_login_button_pressed():
 	$BasicAuth.auth(login, password)
 
 
-func _on_basic_auth_logged_in(is_successfull):
+func _on_basic_auth_logged_in(is_successfull, login, user_id):
+	var status_label = $Screen/MarginContainer/VBoxContainer/IncorrectLabel
+	if is_successfull:
+		status_label.set("theme_override_colors/font_color", Color(0, 1, 0))
+		status_label.text = "Welcome, " + login
+		await get_tree().create_timer(4).timeout
+		queue_free()
+		return
+
+	status_label.set("theme_override_colors/font_color", Color(1, 0, 0))
+	status_label.text = "incorrect login or password"
+	
+
+func _on_button_pressed():
 	queue_free()

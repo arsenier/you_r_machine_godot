@@ -1,0 +1,118 @@
+[gd_scene load_steps=12 format=3 uid="uid://ci68kj35pbor6"]
+
+[ext_resource type="Texture2D" uid="uid://b3w4hgcn6bco7" path="res://assets/metal.jpg" id="1_8p3h8"]
+[ext_resource type="Texture2D" uid="uid://dsxrxncm65skq" path="res://assets/ba373a7224578539336f3d2be7005410.jpg" id="2_c7plv"]
+[ext_resource type="Script" path="res://Robot.gd" id="2_ikirl"]
+[ext_resource type="Texture2D" uid="uid://cot8chccl26os" path="res://assets/1690865302984.png" id="3_hjynv"]
+[ext_resource type="Script" path="res://RigidBody2D2.gd" id="4_i38w5"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_km523"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oaquc"]
+size = Vector2(902.653, 360)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a3sgt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8kwx2"]
+radius = 45.0
+height = 198.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ybty7"]
+rough = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iovqk"]
+radius = 50.0
+
+[node name="Game" type="Node2D"]
+
+[node name="Area2D" type="RigidBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_km523")
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+freeze_mode = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(580.75, 793.5)
+scale = Vector2(1.31944, 1.31944)
+texture = ExtResource("1_8p3h8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(582.25, 793)
+scale = Vector2(1.31944, 1.31944)
+shape = SubResource("RectangleShape2D_oaquc")
+
+[node name="Area2D2" type="RigidBody2D" parent="."]
+position = Vector2(958, -148)
+rotation = 1.5708
+physics_material_override = SubResource("PhysicsMaterial_km523")
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+freeze_mode = 1
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D2"]
+position = Vector2(580.75, 793.5)
+scale = Vector2(1.31944, 1.31944)
+texture = ExtResource("1_8p3h8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(582.25, 793)
+scale = Vector2(1.31944, 1.31944)
+shape = SubResource("RectangleShape2D_oaquc")
+
+[node name="Area2D3" type="RigidBody2D" parent="."]
+position = Vector2(2169, -145)
+rotation = 1.5708
+physics_material_override = SubResource("PhysicsMaterial_km523")
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+freeze_mode = 1
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D3"]
+position = Vector2(580.75, 793.5)
+scale = Vector2(1.31944, 1.31944)
+texture = ExtResource("1_8p3h8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
+position = Vector2(582.25, 793)
+scale = Vector2(1.31944, 1.31944)
+shape = SubResource("RectangleShape2D_oaquc")
+
+[node name="Robot" type="Node2D" parent="."]
+position = Vector2(590, 336)
+script = ExtResource("2_ikirl")
+metadata/_edit_group_ = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Robot"]
+mass = 10.0
+physics_material_override = SubResource("PhysicsMaterial_a3sgt")
+gravity_scale = 0.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Robot/RigidBody2D"]
+shape = SubResource("CapsuleShape2D_8kwx2")
+
+[node name="Sprite2D" type="Sprite2D" parent="Robot/RigidBody2D"]
+scale = Vector2(0.105, 0.245)
+texture = ExtResource("2_c7plv")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="Robot"]
+position = Vector2(0, 88)
+physics_material_override = SubResource("PhysicsMaterial_ybty7")
+script = ExtResource("4_i38w5")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Robot/RigidBody2D2"]
+shape = SubResource("CircleShape2D_iovqk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Robot/RigidBody2D2"]
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("3_hjynv")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Robot"]
+position = Vector2(0, 88)
+node_a = NodePath("../RigidBody2D")
+node_b = NodePath("../RigidBody2D2")
